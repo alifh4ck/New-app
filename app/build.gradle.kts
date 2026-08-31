@@ -15,8 +15,6 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        // TODO: point this at YOUR OWN backend (Firebase, Railway, Render, Supabase, etc).
-        // Do not reuse anyone else's backend URL/keys — each app needs its own.
         buildConfigField("String", "BACKEND_BASE_URL", "\"https://YOUR-OWN-BACKEND.example.com/\"")
         buildConfigField("String", "ADSTERRA_SMARTLINK_URL", "\"https://YOUR-OWN-ADSTERRA-LINK\"")
     }
@@ -58,18 +56,15 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
 
-    // Networking
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
-    // Firebase (auth + push notifications + analytics) — connect to YOUR OWN Firebase project
     implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
 
-    // DataStore for local prefs (token storage etc.)
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
