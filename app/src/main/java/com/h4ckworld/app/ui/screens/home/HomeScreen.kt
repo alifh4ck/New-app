@@ -15,6 +15,7 @@ import com.h4ckworld.app.viewmodel.WalletViewModel
 fun HomeScreen(
     uid: String,
     onWatchAdClick: () -> Unit,
+    onOffersClick: () -> Unit,
     walletViewModel: WalletViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     val uiState by walletViewModel.uiState.collectAsState()
@@ -42,6 +43,12 @@ fun HomeScreen(
 
         Button(onClick = onWatchAdClick, modifier = Modifier.fillMaxWidth()) {
             Text("Watch & Earn")
+        }
+
+        Spacer(Modifier.height(12.dp))
+
+        OutlinedButton(onClick = onOffersClick, modifier = Modifier.fillMaxWidth()) {
+            Text("Complete Offers (bigger rewards)")
         }
 
         Spacer(Modifier.height(8.dp))

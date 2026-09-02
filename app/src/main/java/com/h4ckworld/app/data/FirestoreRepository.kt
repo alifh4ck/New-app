@@ -143,4 +143,24 @@ class FirestoreRepository {
     suspend fun registerFcmToken(uid: String, token: String) {
         db.collection("users").document(uid).update("fcmToken", token).await()
     }
+
+    /**
+     * Submits a claim that the user completed an offerwall task (app install,
+     * survey, etc). This does NOT credit the balance automatically — an admin
+     * reviews it in the Admin Panel and approves/rejects it. This is the
+     * "manual crediting" mode: safe, free (no server webhook needed), and
+     * fully legitimate since real third-party offers with real user actions
+     * are what's being rewarded.
+     */
+    suspend fun submitOfferCompletion(uid: String, offerName: String, note: String) {
+        db.collection("offerSubmissions").add(
+            mapOf(
+                "userId" to uid,
+                "offerName" to offerName,
+                "note" to note,
+                "status" to "pending",
+                "createdAt" to FieldValue.serverTimestamp()
+            )
+        ).await()
+    }
 }

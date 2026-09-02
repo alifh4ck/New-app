@@ -1,31 +1,30 @@
 package com.h4ckworld.app.ads
 
 /**
- * Most CPM ad networks aimed at "earning" apps (Adsterra, Monetag, PropellerAds, etc.)
- * don't ship a native rewarded-ad Android SDK the way AdMob/Unity Ads do — they work
- * as a "smartlink" / "direct link" URL that you open (often in a WebView or Custom Tab),
- * and they pay YOU (the publisher) per impression/click on YOUR account.
+ * A rotation of your Adsterra (or other network) smartlink URLs. Put as many
+ * as you have — the Ad screen shows them ONE AT A TIME, fully visible on
+ * screen, for AD_DWELL_TIME_MS each, then automatically moves to the next.
+ * Nothing loads in the background or off-screen — that's what would count as
+ * invalid traffic to the ad network. Only what's genuinely on screen counts.
  *
- * Important: there is no way to reward an individual user for "watching an ad" unless
- * your own backend decides that, because the ad network only reports aggregate
- * impressions to your publisher dashboard — it does not tell your app "user X watched
- * ad Y, pay them $Z". Any per-user reward amount has to be a rule YOU set on YOUR
- * backend (e.g. "opening the ad screen once per day = X credits"), and you should rate
- * limit / fraud-check it server-side, or the ad network will flag your account for
- * invalid traffic and stop paying out.
- *
- * This class just centralizes the smartlink URL and exposes a simple "was the ad
- * screen opened" callback — the actual crediting decision must happen in your backend
- * (see BackendApi.claimReward), not solely on-device.
+ * TODO: replace these placeholders with your real Adsterra smartlink URLs.
  */
 object AdManager {
 
-    fun getSmartlinkUrl(): String = com.h4ckworld.app.BuildConfig.ADSTERRA_SMARTLINK_URL
+    val adUrls: List<String> = listOf(
+        com.h4ckworld.app.BuildConfig.ADSTERRA_SMARTLINK_URL
+        // "https://your-second-adsterra-link",
+        // "https://your-third-adsterra-link",
+    )
+
+    /** How long each individual ad stays visible on screen before auto-advancing. */
+    const val AD_DWELL_TIME_MS = 15000L
 
     /**
-     * Call this once the WebView/CustomTab showing the smartlink has been open for a
-     * minimum dwell time (e.g. 5-10s) to reduce trivial fraud, then ask your backend
-     * to mint a one-time claim key and validate/credit it server-side.
+     * How many ads to auto-play in one sitting before returning the user to
+     * Home. Keep this reasonable — a user genuinely watching 20 ads back to
+     * back without any break is itself a pattern ad networks may flag, so
+     * don't set this too high.
      */
-    const val MIN_DWELL_TIME_MS = 8000L
+    const val ADS_PER_SESSION = 5
 }

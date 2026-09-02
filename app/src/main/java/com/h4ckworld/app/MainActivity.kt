@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.h4ckworld.app.data.FirestoreRepository
 import com.h4ckworld.app.ui.screens.home.AdScreen
 import com.h4ckworld.app.ui.screens.home.HomeScreen
+import com.h4ckworld.app.ui.screens.offers.OffersScreen
 import com.h4ckworld.app.ui.screens.referral.ReferralScreen
 import com.h4ckworld.app.ui.theme.H4ckWorldTheme
 import com.h4ckworld.app.viewmodel.WalletViewModel
@@ -91,12 +92,16 @@ fun AppNavHost(uid: String) {
         composable("home") {
             HomeScreen(
                 uid = uid,
-                onWatchAdClick = { navController.navigate("ad") }
+                onWatchAdClick = { navController.navigate("ad") },
+                onOffersClick = { navController.navigate("offers") }
             )
+        }
+        composable("offers") {
+            OffersScreen(uid = uid)
         }
         composable("ad") {
             val walletViewModel: WalletViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
-            AdScreen(onEligibleForClaim = {
+            AdScreen(onSessionComplete = {
                 walletViewModel.claimReward(uid) { _, _ ->
                     navController.popBackStack()
                 }
