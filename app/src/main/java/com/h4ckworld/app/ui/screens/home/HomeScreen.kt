@@ -7,20 +7,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.h4ckworld.app.api.WalletResponse
+import com.h4ckworld.app.data.WalletData
 import com.h4ckworld.app.viewmodel.WalletUiState
 import com.h4ckworld.app.viewmodel.WalletViewModel
 
 @Composable
 fun HomeScreen(
-    bearerToken: String,
+    uid: String,
     onWatchAdClick: () -> Unit,
     walletViewModel: WalletViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     val uiState by walletViewModel.uiState.collectAsState()
 
-    LaunchedEffect(bearerToken) {
-        walletViewModel.loadWallet(bearerToken)
+    LaunchedEffect(uid) {
+        walletViewModel.loadWallet(uid)
     }
 
     Column(
@@ -46,14 +46,14 @@ fun HomeScreen(
 
         Spacer(Modifier.height(8.dp))
         Text(
-            "Rewards are calculated and verified by our server, not the app itself.",
+            "Rewards are calculated and verified by Firestore security rules, not the app itself.",
             style = MaterialTheme.typography.bodySmall
         )
     }
 }
 
 @Composable
-private fun WalletSummary(wallet: WalletResponse) {
+private fun WalletSummary(wallet: WalletData) {
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(20.dp)) {
             Text("Total earned", style = MaterialTheme.typography.labelMedium)

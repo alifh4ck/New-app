@@ -15,7 +15,6 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        buildConfigField("String", "BACKEND_BASE_URL", "\"https://YOUR-OWN-BACKEND.example.com/\"")
         buildConfigField("String", "ADSTERRA_SMARTLINK_URL", "\"https://YOUR-OWN-ADSTERRA-LINK\"")
     }
 
@@ -56,16 +55,17 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
 
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-
+    // Firebase — Auth + Firestore (free Spark plan, no Cloud Functions needed)
     implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
     implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
 
     implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+    // Lets Firebase's Task-based APIs be used with Kotlin coroutines' .await()
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
 }

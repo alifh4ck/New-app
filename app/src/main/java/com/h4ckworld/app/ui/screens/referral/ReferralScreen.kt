@@ -12,14 +12,14 @@ import com.h4ckworld.app.viewmodel.ReferralViewModel
 
 @Composable
 fun ReferralScreen(
-    bearerToken: String,
+    uid: String,
     viewModel: ReferralViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val clipboard = LocalClipboardManager.current
 
-    LaunchedEffect(bearerToken) {
-        viewModel.loadReferralStats(bearerToken)
+    LaunchedEffect(uid) {
+        viewModel.loadReferralStats(uid)
     }
 
     Column(Modifier.fillMaxSize().padding(24.dp)) {

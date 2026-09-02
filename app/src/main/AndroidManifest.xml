@@ -4,11 +4,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Intentionally NOT requesting REQUEST_INSTALL_PACKAGES — Play Store flags
+         "earning" apps that can silently install other APKs. Only add this back
+         if you have a real, disclosed reason for it. -->
 
     <application
         android:name=".H4ckWorldApp"
         android:allowBackup="false"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.H4CKWORLD">
 
